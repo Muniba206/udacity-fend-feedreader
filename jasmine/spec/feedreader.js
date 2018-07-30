@@ -120,22 +120,28 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
 		 
-		describe('New Feed Selection', function () {
-
-        var entries;
+    describe('New Feed Selection', function() {
+        var feed1,
+            feed2;
 
         beforeEach(function(done) {
-            loadFeed(1, (function() {
-                entries = $(".feed").html();
-            }));
-
+            loadFeed(0, function() {
+                feed1 = $(".feed").html();
+                //loading second feed
+            });
+            loadFeed(1, function() {
+                feed2 = $(".feed").html();
+                done();
+            });
+        });
+        it('titles values change after being loaded', function(done) {
+            expect(feed1).not.toBe(feed2);
             done();
         });
 
-        it('content changes when a feed is loaded', function(done) {
-            loadFeed(2, done);
-
-            expect($(".feed").html()).not.toEqual(entries);
+        afterEach(function(done) {
+            //loading back the first feed
+            loadFeed(0, done);
         });
     });
 }());
