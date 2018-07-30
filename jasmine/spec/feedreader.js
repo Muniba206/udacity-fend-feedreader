@@ -134,7 +134,7 @@ $(function() {
                 done();
             });
         });
-        it('titles values change after being loaded', function(done) {
+        it('Content changes after being loaded', function(done) {
             expect(feed1).not.toBe(feed2);
             done();
         });
